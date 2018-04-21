@@ -5,9 +5,15 @@ which version of your images you are using.
 
 This project aims to quickly check the state of your deployed images.
 
+**Demo**
+
+
+
 ## Configuration
 
 **Available environment variables**
+
+(optional) `PORT`: Running application port. Default: 3000
 
 (optional) `EXCLUDE_NAMESPACES`: Do not show pods in the selected namespaces
 

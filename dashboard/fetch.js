@@ -4,6 +4,21 @@ const moment = require('moment');
 let timestamp = null;
 let cachedData = null;
 
+function getWarningMessageForImage(image) {
+  if (image.indexOf(':') === -1 || image.indexOf(':latest') !== -1) {
+    return 'This image does not use a specific version';
+  }
+
+  return '';
+}
+
+function getImages(pod) {
+  return pod.spec.containers.map(container => ({
+    name: container.image,
+    warning: getWarningMessageForImage(container.image),
+  }));
+}
+
 function fetchDashboardData() {
   return dashboard.getNamespaces().then((request) => {
     const excludeNamespaces = process.env.EXCLUDE_NAMESPACES ? process.env.EXCLUDE_NAMESPACES.split(',') : [];
@@ -17,8 +32,8 @@ function fetchDashboardData() {
         namespace,
         pods: podsRequest[index].body.items.map(item => ({
           name: item.metadata.name,
+          images: getImages(item),
           lastCreation: moment(item.metadata.creationTimestamp).fromNow(),
-          images: item.spec.containers.map(container => container.image),
         })),
       })).filter(namespace => namespace.pods.length > 0)
     );

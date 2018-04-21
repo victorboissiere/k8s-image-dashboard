@@ -51,7 +51,10 @@
             <b>{{name}}</b> <span class="badge badge-light">{{lastCreation}}</span>
             <hr/>
             {{#images}}
-              {{ . }}<br/>
+              {{name}}<br/>
+              {{#warning}}
+                <p class="text-warning">{{.}}</p>
+              {{/warning}}
             {{/images}}
             <br/><br/>
             {{/pods}}
