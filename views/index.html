@@ -52,6 +52,7 @@
             <b>{{name}}</b> <span class="badge badge-light">{{lastCreation}}</span>
             <hr/>
             {{#images}}
+            <span class="badge badge-{{statusColor}}">{{status}}</span>
               {{#url}}
                 <a href="{{ url }}">{{name}}</a>
               {{/url}}

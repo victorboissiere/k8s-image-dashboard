@@ -23,11 +23,24 @@ function getRepositoryURLForImage(image) {
   return null;
 }
 
+function getPhaseColor(phase) {
+  const colors = {
+    'Running': 'success',
+    'Pending': 'primary',
+    'Unknown': 'warning',
+    'Failure': 'danger',
+  };
+
+  return colors[phase] || 'secondary';
+}
+
 function getImages(pod) {
   return pod.spec.containers.map(container => ({
     name: container.image,
     warning: getWarningMessageForImage(container.image),
     url: getRepositoryURLForImage(container.image),
+    statusColor: getPhaseColor(pod.status.phase),
+    status: pod.status.phase,
   }));
 }
 
@@ -53,7 +66,7 @@ function fetchDashboardData() {
 }
 
 function fetch() {
-  if (cachedData == null || moment().unix() - timestamp > 10) {
+  if (process.env.NO_CACHE || cachedData == null || moment().unix() - timestamp > 10) {
     return fetchDashboardData().then((data) => {
       timestamp = moment().unix();
       cachedData = data;
