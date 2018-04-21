@@ -14,7 +14,7 @@ function fetch() {
           lastCreation: moment(item.metadata.creationTimestamp).fromNow(),
           images: item.spec.containers.map(container => container.image),
         })),
-      }))
+      })).filter(namespace => namespace.pods.length > 0)
     );
   });
 }

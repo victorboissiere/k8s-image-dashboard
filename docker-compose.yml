@@ -1,0 +1,13 @@
+version: '3.4'
+services:
+  k8s-image-dashboard:
+    build: ./
+    image: gitcommit/k8s-image-dashboard
+    volumes:
+      - ./routes:/home/app/routes
+      - ./dashboard:/home/app/dashboard
+      - ./views:/home/app/views
+      - ./public:/home/app/public
+    command: yarn dev
+    ports:
+      - 3000:3000

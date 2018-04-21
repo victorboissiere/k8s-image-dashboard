@@ -1,0 +1,22 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: image-dashboard
+spec:
+  selector:
+    matchLabels:
+      app: image-dashboard
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: image-dashboard
+    spec:
+      containers:
+      - name: master
+        image: gitcommit/k8s-image-dashboard
+        resources:
+          limits:
+            memory: 100Mi
+        ports:
+        - containerPort: 3000
