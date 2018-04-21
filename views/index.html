@@ -1,0 +1,23 @@
+<html>
+<title>Dashboard</title>
+<style>
+  body {
+    white-space: pre;
+  }
+</style>
+<body>
+Simple dashboard
+<br/><br/>
+{{#data}}
+<h1>{{namespace}}</h1>
+  {{#pods}}
+    <h3>{{name}} - {{lastCreation}}</h3>
+    {{#images}}
+      {{ . }}
+    {{/images}}
+  {{/pods}}
+{{/data}}
+
+{{debug}}
+</body>
+</html>
