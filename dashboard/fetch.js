@@ -6,7 +6,10 @@ let cachedData = null;
 
 function fetchDashboardData() {
   return dashboard.getNamespaces().then((request) => {
-    const namespaces = request.body.items.map(item => item.metadata.name);
+    const excludeNamespaces = process.env.EXCLUDE_NAMESPACES ? process.env.EXCLUDE_NAMESPACES.split(',') : [];
+    const namespaces = request.body.items
+      .map(item => item.metadata.name)
+      .filter(namespace => excludeNamespaces.indexOf(namespace) === -1);
 
     return Promise.all(
       namespaces.map(namespace => dashboard.getPodsFromNamespace((namespace)))

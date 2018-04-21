@@ -3,4 +3,3 @@ k8s
 .gitignore
 .git
 .idea
-Dockerfile
