@@ -25,12 +25,15 @@ _Example_: `REPO_REGEX=gitcommit/([a-zA-Z-_]+)|https://github.com/victorboissier
 
 ## K8S deployment
 
-You can pull the latest docker image at `gitcommit/k8s-image-dashboard:v1.0.1`.
+You can pull the most recent docker image at `gitcommit/k8s-image-dashboard:v1.0.1`.
 
-Then execute the following command:
+Or you can directly execute the following command:
 
 ```bash
 kubectl create -f https://raw.githubusercontent.com/victorboissiere/k8s-image-dashboard/master/k8s/deployment.yaml
 kubectl create -f https://raw.githubusercontent.com/victorboissiere/k8s-image-dashboard/master/k8s/service.yaml
 ```
+
+The default service type is ClusterIP. Feel free to update
+the yaml configuration files to your needs.
 
