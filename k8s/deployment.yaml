@@ -6,14 +6,17 @@ spec:
   selector:
     matchLabels:
       app: image-dashboard
+      tier: management
   replicas: 1
   template:
     metadata:
       labels:
         app: image-dashboard
+        tier: management
     spec:
       containers:
       - name: master
+        imagePullPolicy: Always
         image: gitcommit/k8s-image-dashboard
         resources:
           limits:

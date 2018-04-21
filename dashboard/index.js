@@ -1,17 +1,15 @@
 const Client = require('kubernetes-client').Client;
 const config = require('kubernetes-client').config;
-const client = new Client({ config: config.fromKubeconfig(), version: '1.9' });
+const client = new Client({ config: config.fromKubeconfig() });
 
-function getNamespaces() {
-  return client.api.v1.namespaces.get().then((results) => {
-    return results;
-  });
+async function getNamespaces() {
+  await client.loadSpec();
+  return await client.api.v1.namespaces.get();
 }
 
-function getPodsFromNamespace(namespace) {
-  return client.api.v1.namespaces(namespace).pods.get().then((results) => {
-    return results;
-  });
+async function getPodsFromNamespace(namespace) {
+  await client.loadSpec();
+  return client.api.v1.namespaces(namespace).pods.get();
 }
 
 module.exports = {
