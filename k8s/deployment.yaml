@@ -20,6 +20,6 @@ spec:
         image: gitcommit/k8s-image-dashboard
         resources:
           limits:
-            memory: 100Mi
+            memory: 200M
         ports:
         - containerPort: 3000

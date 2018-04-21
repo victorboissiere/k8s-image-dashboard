@@ -12,3 +12,4 @@ spec:
   selector:
     app: image-dashboard
     tier: management
+  type: NodePort

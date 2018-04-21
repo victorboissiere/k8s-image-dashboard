@@ -1,7 +1,10 @@
 const dashboard = require('./');
 const moment = require('moment');
 
-function fetch() {
+let timestamp = null;
+let cachedData = null;
+
+function fetchDashboardData() {
   return dashboard.getNamespaces().then((request) => {
     const namespaces = request.body.items.map(item => item.metadata.name);
 
@@ -17,6 +20,18 @@ function fetch() {
       })).filter(namespace => namespace.pods.length > 0)
     );
   });
+}
+
+function fetch() {
+  if (cachedData == null || moment().unix() - timestamp > 10) {
+    return fetchDashboardData().then((data) => {
+      timestamp = moment().unix();
+      cachedData = data;
+      return data;
+    });
+  }
+
+  return Promise.resolve(cachedData);
 }
 
 module.exports = fetch;

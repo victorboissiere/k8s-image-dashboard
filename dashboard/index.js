@@ -2,14 +2,12 @@ const Client = require('kubernetes-client').Client;
 const config = require('kubernetes-client').config;
 const client = new Client({ config: process.env.LOCAL ? config.fromKubeconfig() : config.getInCluster() });
 
-async function getNamespaces() {
-  await client.loadSpec();
-  return await client.api.v1.namespaces.get();
+function getNamespaces() {
+  return client.loadSpec().then(() => client.api.v1.namespaces.get().then(results => results));
 }
 
-async function getPodsFromNamespace(namespace) {
-  await client.loadSpec();
-  return client.api.v1.namespaces(namespace).pods.get();
+function getPodsFromNamespace(namespace) {
+  return client.loadSpec().then(() => client.api.v1.namespaces(namespace).pods.get().then(results => results));
 }
 
 module.exports = {
