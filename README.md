@@ -5,9 +5,7 @@ which version of your images you are using.
 
 This project aims to quickly check the state of your deployed images.
 
-**Demo**
-
-
+![Overview](./doc/overview.png)
 
 ## Configuration
 
@@ -18,6 +16,12 @@ This project aims to quickly check the state of your deployed images.
 (optional) `EXCLUDE_NAMESPACES`: Do not show pods in the selected namespaces
 
 _Example_: `EXCLUDE_NAMESPACES:kube-system,kube-public`
+
+(optional) `REPO_REGEX`: Link to your own repository
+
+Add a link to a specific image by using a matching regex.
+
+_Example_: `REPO_REGEX=gitcommit/([a-zA-Z-_]+)|https://github.com/victorboissiere/$1` 
 
 ## K8S deployment
 

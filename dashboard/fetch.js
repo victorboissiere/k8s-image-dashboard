@@ -9,13 +9,25 @@ function getWarningMessageForImage(image) {
     return 'This image does not use a specific version';
   }
 
-  return '';
+  return null;
+}
+
+function getRepositoryURLForImage(image) {
+  if (process.env.REPO_REGEX) {
+    const repoRegex = process.env.REPO_REGEX.split('|');
+    const regexp = new RegExp(repoRegex[0]);
+    if (image.match(regexp)) {
+      return image.replace(regexp, repoRegex[1]);
+    }
+  }
+  return null;
 }
 
 function getImages(pod) {
   return pod.spec.containers.map(container => ({
     name: container.image,
     warning: getWarningMessageForImage(container.image),
+    url: getRepositoryURLForImage(container.image),
   }));
 }
 
