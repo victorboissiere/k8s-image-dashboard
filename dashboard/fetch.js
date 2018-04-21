@@ -32,13 +32,15 @@ function getStatus(pod, containerIndex) {
     'restarts': 'warning',
   };
 
-  const containerState = pod.status.containerStatuses[containerIndex].state;
+  const containerStatus = pod.status.containerStatuses[containerIndex];
+  const containerState = containerStatus.state;
   const status = Object.keys(containerState).find(status => Object.keys(colors).indexOf(status) !== -1);
 
   return {
     statusColor: colors[status] || 'secondary',
     status: status,
     statusDetails: containerState[status].reason ? containerState[status] : null, // reason,message
+    ready: containerStatus.ready,
   };
 }
 

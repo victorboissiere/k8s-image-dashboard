@@ -6,6 +6,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title>Pod images dashboard</title>
+  <link rel="icon" type="image/png" href="/images/monitor-icon.png" />
   <link href="//stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
@@ -52,7 +53,10 @@
             <b>{{name}}</b> <span class="badge badge-light">{{lastCreation}}</span>
             <hr/>
             {{#images}}
-            <span class="badge badge-{{statusColor}}">{{status}}</span>
+              <span class="badge badge-{{statusColor}}">{{status}}</span>
+              {{^ready}}
+                <span class="badge badge-danger">Not Ready</span>
+              {{/ready}}
               {{#url}}
                 <a href="{{ url }}">{{name}}</a>
               {{/url}}

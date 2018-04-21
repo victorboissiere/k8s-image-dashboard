@@ -16,18 +16,25 @@ spec:
     spec:
       containers:
       - name: image-dashboard
-        image: gitcommit/k8s-image-dashboard:v1.0.3
+        image: gitcommit/k8s-image-dashboard:v1.0.2
         env:
          - name: REPO_REGEX
            value: gitcommit\/([a-zA-Z0-9-_]+):(.*)$|https://github.com/victorboissiere/$1/tree/$2
         resources:
           limits:
             memory: 200M
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: web-dashboard
+          initialDelaySeconds: 5
+          periodSeconds: 5
         livenessProbe:
           httpGet:
             path: /health
-            port: 3000
+            port: web-dashboard
           initialDelaySeconds: 5
-          timeoutSeconds: 30
+          periodSeconds: 30
         ports:
-        - containerPort: 3000
+        - name: web-dashboard
+          containerPort: 3000
