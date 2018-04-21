@@ -23,24 +23,31 @@ function getRepositoryURLForImage(image) {
   return null;
 }
 
-function getPhaseColor(phase) {
+function getStatus(pod, containerIndex) {
   const colors = {
-    'Running': 'success',
-    'Pending': 'primary',
-    'Unknown': 'warning',
-    'Failure': 'danger',
+    'running': 'success',
+    'ready': 'success',
+    'terminated': 'dark',
+    'waiting': 'warning',
+    'restarts': 'warning',
   };
 
-  return colors[phase] || 'secondary';
+  const containerState = pod.status.containerStatuses[containerIndex].state;
+  const status = Object.keys(containerState).find(status => Object.keys(colors).indexOf(status) !== -1);
+
+  return {
+    statusColor: colors[status] || 'secondary',
+    status: status,
+    statusDetails: containerState[status].reason ? containerState[status] : null, // reason,message
+  };
 }
 
 function getImages(pod) {
-  return pod.spec.containers.map(container => ({
+  return pod.spec.containers.map((container, index) => ({
     name: container.image,
     warning: getWarningMessageForImage(container.image),
     url: getRepositoryURLForImage(container.image),
-    statusColor: getPhaseColor(pod.status.phase),
-    status: pod.status.phase,
+    ...getStatus(pod, index),
   }));
 }
 

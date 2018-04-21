@@ -21,11 +21,11 @@ _Example_: `EXCLUDE_NAMESPACES:kube-system,kube-public`
 
 Add a link to a specific image by using a matching regex.
 
-_Example_: `REPO_REGEX=gitcommit/([a-zA-Z-_]+)|https://github.com/victorboissiere/$1` 
+_Example_: `REPO_REGEX=gitcommit/([a-zA-Z-_]+)|https://github.com/victorboissiere/$1`
 
 ## K8S deployment
 
-You can pull the most recent docker image at `gitcommit/k8s-image-dashboard:v1.0.2`.
+You can pull the most recent docker image at `gitcommit/k8s-image-dashboard:v1.0.3`.
 
 Or you can directly execute the following command:
 

@@ -60,11 +60,14 @@
                 {{ name }}
               {{/url}}
               <br/>
+              {{#statusDetails}}
+                <p class="text-danger">{{reason}}<br/>{{message}}</p>
+              {{/statusDetails}}
               {{#warning}}
                 <p class="text-warning">{{.}}</p>
               {{/warning}}
             {{/images}}
-            <br/><br/>
+            <br/>
             {{/pods}}
           </div>
         {{/data}}
