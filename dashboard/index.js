@@ -1,6 +1,6 @@
 const Client = require('kubernetes-client').Client;
 const config = require('kubernetes-client').config;
-const client = new Client({ config: config.fromKubeconfig() });
+const client = new Client({ config: process.env.LOCAL ? config.fromKubeconfig() : config.getInCluster() });
 
 async function getNamespaces() {
   await client.loadSpec();
