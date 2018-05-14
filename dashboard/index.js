@@ -6,6 +6,10 @@ function getNamespaces() {
   return client.loadSpec().then(() => client.api.v1.namespaces.get().then(results => results));
 }
 
+function getNodes() {
+  return client.loadSpec().then(() => client.api.v1.nodes.get().then(results => results));
+}
+
 function getPodsFromNamespace(namespace) {
   return client.loadSpec().then(() => client.api.v1.namespaces(namespace).pods.get().then(results => results));
 }
@@ -13,4 +17,5 @@ function getPodsFromNamespace(namespace) {
 module.exports = {
   getNamespaces,
   getPodsFromNamespace,
+  getNodes,
 };
