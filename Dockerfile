@@ -19,4 +19,4 @@ COPY --from=0 /usr/bin/imageDashboard /opt/app/
 COPY ./views /opt/app/
 
 ENV PORT 3000
-CMD ["/usr/bin/imageDashboard"]
+CMD ["/opt/app/imageDashboard"]
