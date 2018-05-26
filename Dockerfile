@@ -1,12 +1,16 @@
-FROM mhart/alpine-node:8.11.1
+FROM golang:1.10.2-alpine3.7
 
-WORKDIR /home/app
+RUN apk --update add git
+WORKDIR /opt/app
+COPY . /opt/app
 
-COPY package.json ./
-COPY yarn.lock ./
-RUN yarn install
+RUN go get -d .
+RUN go build
+RUN ls -la
 
-COPY ./ ./
+FROM alpine:3.7
 
-CMD ["yarn", "start"]
+COPY --from=0 /opt/app /opt/app
 
+ENV PORT 3000
+RUN /opt/app/main

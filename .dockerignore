@@ -1,6 +1,8 @@
-node_modules
+docs
 k8s
+Dockerfile
+build
+gin-bin
+README.md
 .gitignore
 .git
-.idea
-doc

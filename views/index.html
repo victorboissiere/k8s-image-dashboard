@@ -49,34 +49,32 @@
       <br/>
       <ul class="list-unstyled">
         <div class="row">
-        {{#data}}
+        {{range .}}
           <div class="col-md-6">
-            <h3>{{namespace}}</h3>
-            {{#pods}}
+            <h3>{{.Namespace}}</h3>
             <hr/>
-            <b>{{name}}</b> <span class="badge badge-light">{{lastCreation}}</span><br/>
-            {{#images}}
-              <span class="badge badge-{{statusColor}}">{{status}}</span>
-              {{^ready}}
-                <span class="badge badge-danger">Not Ready</span>
-              {{/ready}}
-              {{#url}}
-                <a href="{{ url }}" target="_blank">{{name}}</a>
-              {{/url}}
-              {{^url}}
-                {{ name }}
-              {{/url}}
+            {{range .Pods}}
+            <b>{{.Name}}</b> <span class="badge badge-light">{{.Date}}</span><br/>
+                {{range .Containers}}
+                    <span class="badge badge-{{.Status.Color}}">{{.Status.Name}}</span>
+                    {{if not .Status.IsReady}}
+                    <span class="badge badge-danger">Not Ready</span>
+                    {{end}}
+                    {{if .HasRepositoryURL}}
+                    <a href="{{.RepositoryURL}}" target="_blank">{{.Image}}</a>
+                    {{else}}
+                        {{.Image}}
+                    {{end}}
+                    <br/>
+                    {{if .Status.HasMessage}}
+                    <p class="text-danger">{{.Status.Message}}</p>
+                    {{end}}
+                {{end}}
+                    <br/>
+              {{end}}
               <br/>
-              {{#statusDetails}}
-                <p class="text-danger">{{reason}}<br/>{{message}}</p>
-              {{/statusDetails}}
-              {{#warning}}
-                <p class="text-warning">{{.}}</p>
-              {{/warning}}
-            {{/images}}
-            {{/pods}}
           </div>
-        {{/data}}
+        {{end}}
         </div>
       </ul>
     </div>

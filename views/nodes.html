@@ -49,30 +49,30 @@
       <br/>
       <ul class="list-unstyled">
         <div class="row">
-          {{#nodes}}
+            {{range .}}
             <div class="col-sm-6">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">{{name}}</h4>
+                  <h4 class="card-title">{{.Name}}</h4>
                   <p class="card-text">
-                    {{#labels}}
-                    <span class="badge badge-info">{{.}}</span>
-                    {{/labels}}
+                    {{ range $key, $value := .Labels }}
+                    <span class="badge badge-info">{{$key}}: {{$value}}</span>
+                    {{end}}
                     <br/>
-                    {{#annotations}}
-                    <span class="badge badge-light">{{.}}</span>
-                    {{/annotations}}
+                    {{ range $key, $value := .Labels }}
+                    <span class="badge badge-light">{{$key}}: {{$value}}</span>
+                    {{end}}
                     <br/><br/>
                     <b>IP:</b>
-                    <a href="#" data-toggle="tooltip" data-placement="top" title="Click to copy" onClick="copyNodeIP('{{ip}}')">
-                      {{ip}}
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Click to copy" onClick="copyNodeIP('{{.IP}}')">
+                        {{.IP}}
                     </a><br/>
-                    <b>K8s version:</b> {{kubeVersion}}
+                    <b>K8s version:</b> {{.KubeVersion}}
                   </p>
                 </div>
               </div>
             </div>
-          {{/nodes}}
+            {{end}}
         </div>
       </ul>
     </div>
