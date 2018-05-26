@@ -18,4 +18,4 @@ FROM alpine:3.7
 COPY --from=0 /usr/bin/imageDashboard /usr/bin/
 
 ENV PORT 3000
-ENTRYPOINT ["/usr/bin/imageDashboard"]
+CMD ["/usr/bin/imageDashboard"]
