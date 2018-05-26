@@ -16,7 +16,7 @@ RUN go build -ldflags "-s -w" -o /usr/bin/imageDashboard
 FROM alpine:3.7
 
 COPY --from=0 /usr/bin/imageDashboard /opt/app/
-COPY ./views /opt/app/
+COPY ./views /opt/app/views
 
 ENV PORT 3000
 CMD ["/opt/app/imageDashboard"]
