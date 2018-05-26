@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"./controllers"
 	"os"
+	"net/http"
 )
 
 type TemplateRenderer struct {
@@ -28,10 +29,13 @@ func main() {
 
 	e.GET("/", dashboard.Index)
 	e.GET("/nodes", dashboard.Nodes)
+	e.GET("/health", func (c echo.Context) error {
+		return c.String(http.StatusOK, "Healthy!")
+	})
 
 	port, exists := os.LookupEnv("PORT")
 	if !exists {
-		port = "3001"
+		port = "3000"
 	}
 
 	e.Logger.Fatal(e.Start(":" + port))
