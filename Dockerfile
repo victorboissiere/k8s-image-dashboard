@@ -1,16 +1,21 @@
 FROM golang:1.10.2-alpine3.7
 
 RUN apk --update add git
-WORKDIR /opt/app
-COPY . /opt/app
+WORKDIR /gopath/src/app
+RUN go get github.com/justincampbell/timeago && \
+    go get k8s.io/api/core/v1 && \
+    go get k8s.io/client-go/rest && \
+    go get k8s.io/client-go/tools/clientcmd && \
+    go get k8s.io/apimachinery/pkg/apis/meta/v1 && \
+    go get github.com/labstack/echo
 
-RUN go get -d .
-RUN go build
-RUN ls -la
+COPY . /gopath/src/app/
+
+RUN go build -ldflags "-s -w" -o /usr/bin/imageDashboard
 
 FROM alpine:3.7
 
-COPY --from=0 /opt/app /opt/app
+COPY --from=0 /usr/bin/imageDashboard /usr/bin/
 
 ENV PORT 3000
-RUN /opt/app/main
+ENTRYPOINT ["/usr/bin/imageDashboard"]
