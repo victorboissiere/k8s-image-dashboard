@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: image-dashboard
-        image: gitcommit/k8s-image-dashboard:v1.0.6
+        image: gitcommit/k8s-image-dashboard:v1.2.0
         env:
          - name: REPO_REGEX
            value: gitcommit\/([a-zA-Z0-9-_]+):(.*)$|https://github.com/victorboissiere/$1/tree/$2
