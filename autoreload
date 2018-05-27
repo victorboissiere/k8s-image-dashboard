@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# go get github.com/codegangsta/gin
+
+export GOPATH=$HOME/go
+$GOPATH/bin/gin run main.go
