@@ -7,6 +7,7 @@ type NamespacePods struct {
 
 type Pod struct {
 	Name string
+	Namespace string
 	Containers []Container
 	Date string
 }
@@ -32,4 +33,6 @@ type Node struct {
 	Annotations map[string]string
 	IP string
 	KubeVersion string
+	OSImage string
+	MemoryCapacity int64
 }

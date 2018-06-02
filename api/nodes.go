@@ -24,12 +24,16 @@ func GetNodes() []Node {
 	for i := 0; i < len(nodeList.Items); i++ {
 		nodeItem := nodeList.Items[i]
 
+		memoryCapacity, _ := nodeItem.Status.Capacity.Memory().AsInt64()
+
 		nodes[i] = Node{
 			Name: nodeItem.Name,
 			Annotations: nodeItem.Annotations,
 			Labels: nodeItem.Labels,
 			IP: getNodeIP(nodeItem),
 			KubeVersion: nodeItem.Status.NodeInfo.KubeletVersion,
+			OSImage: nodeItem.Status.NodeInfo.OSImage,
+			MemoryCapacity: memoryCapacity / 1024 / 1024,
 		}
 	}
 

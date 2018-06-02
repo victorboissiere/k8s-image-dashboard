@@ -13,3 +13,12 @@ func Index(c echo.Context) error {
 func Nodes(c echo.Context) error {
 	return c.Render(http.StatusOK, "nodes.html", api.GetNodes())
 }
+
+func Pod(c echo.Context) error {
+	pod := api.GetPod(c.Param("namespace"), c.Param("podName"))
+	if pod.Name == "NotFound" {
+		return c.Redirect(302, "/")
+	}
+
+	return c.Render(http.StatusOK, "pod.html",  pod)
+}

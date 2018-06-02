@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+$GOPATH/bin/gin --all run main.go

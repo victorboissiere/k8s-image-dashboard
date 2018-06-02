@@ -31,6 +31,8 @@ func main() {
 
 	e.GET("/", dashboard.Index)
 	e.GET("/nodes", dashboard.Nodes)
+	e.GET("/pod/:namespace/:podName", dashboard.Pod)
+	e.POST("/pod/actions/rolling-update/:namespace/:podName", dashboard.Pod)
 	e.GET("/health", func (c echo.Context) error {
 		return c.String(http.StatusOK, "Healthy!")
 	})
