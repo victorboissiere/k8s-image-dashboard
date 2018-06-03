@@ -22,3 +22,9 @@ func Pod(c echo.Context) error {
 
 	return c.Render(http.StatusOK, "pod.html",  pod)
 }
+
+func ArbitraryRollingUpdateAction(c echo.Context) error {
+	api.TriggerArbitraryRollingUpdateOnDeployment(c.Param("namespace"), c.Param("podName"))
+
+	return c.NoContent(http.StatusOK)
+}

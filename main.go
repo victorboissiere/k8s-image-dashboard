@@ -24,6 +24,9 @@ func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c 
 func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
+	e.Use(middleware.RecoverWithConfig(middleware.RecoverConfig{
+		DisableStackAll: true,
+	}))
 	renderer := &TemplateRenderer{
 		templates: template.Must(template.ParseGlob("views/*.html")),
 	}
@@ -32,7 +35,8 @@ func main() {
 	e.GET("/", dashboard.Index)
 	e.GET("/nodes", dashboard.Nodes)
 	e.GET("/pod/:namespace/:podName", dashboard.Pod)
-	e.POST("/pod/actions/rolling-update/:namespace/:podName", dashboard.Pod)
+	e.POST("/pod/actions/rolling-update/:namespace/:podName", dashboard.ArbitraryRollingUpdateAction)
+
 	e.GET("/health", func (c echo.Context) error {
 		return c.String(http.StatusOK, "Healthy!")
 	})
