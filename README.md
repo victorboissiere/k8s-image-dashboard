@@ -25,7 +25,7 @@ _Example_: `REPO_REGEX=gitcommit/([a-zA-Z-_]+)|https://github.com/victorboissier
 
 ## K8S deployment
 
-You can pull the most recent docker image at `gitcommit/k8s-image-dashboard:v1.2.0`.
+You can pull the most recent docker image at `gitcommit/k8s-image-dashboard:v1.2.1`.
 
 Or you can directly execute the following command:
 
