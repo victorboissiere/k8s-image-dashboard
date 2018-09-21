@@ -9,8 +9,19 @@ import (
 )
 
 func getContainerStatus(pod v1.Pod, index int) ContainerStatus {
-	containerState := pod.Status.ContainerStatuses[index].State
-	isReady := pod.Status.ContainerStatuses[index].Ready
+
+  if len(pod.Status.ContainerStatuses) == 0 {
+		return ContainerStatus{
+			Name: "Failed",
+			Color: "error",
+			Message: pod.Status.Message,
+			HasMessage: true,
+			IsReady: false,
+		}
+  }
+
+  containerState := pod.Status.ContainerStatuses[index].State
+  isReady := pod.Status.ContainerStatuses[index].Ready
 
 	if containerState.Running != nil {
 		return ContainerStatus{
