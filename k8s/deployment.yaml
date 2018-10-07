@@ -1,3 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: image-dashboard
+  labels:
+    app: image-dashboard
+    tier: management
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+  selector:
+    app: image-dashboard
+    tier: management
+  type: NodePort
+---
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
@@ -16,7 +32,7 @@ spec:
     spec:
       containers:
       - name: image-dashboard
-        image: gitcommit/k8s-image-dashboard:v1.2.1
+        image: gitcommit/k8s-image-dashboard:latest
         env:
          - name: REPO_REGEX
            value: gitcommit\/([a-zA-Z0-9-_]+):(.*)$|https://github.com/victorboissiere/$1/tree/$2
